@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>认知小观察 · 专业版（3岁-成人）</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:linear-gradient(160deg,#F4F7FE,#EAF3EC);min-height:100vh;color:#2b2f36;user-select:none}
+.wrap{max-width:660px;margin:0 auto;padding:20px 18px 44px}
+.card{background:#fff;border-radius:22px;padding:28px 24px;box-shadow:0 6px 24px rgba(30,60,120,.09);margin-top:18px}
+h1{font-size:29px;text-align:center;color:#1F5FA8}
+.sub{text-align:center;color:#7a8494;font-size:15px;margin-top:8px;line-height:1.8}
+.badge{display:inline-block;background:#EAF1FD;color:#1F5FA8;font-size:13px;padding:4px 12px;border-radius:20px;margin:4px 2px}
+.btn{display:block;width:100%;border:none;border-radius:16px;padding:16px;font-size:20px;font-weight:700;color:#fff;background:linear-gradient(135deg,#3E8EDE,#1F5FA8);margin-top:18px;cursor:pointer;box-shadow:0 4px 14px rgba(31,95,168,.30)}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:#F1F5F9;color:#555;box-shadow:none}
+.agebtn{display:flex;align-items:center;width:100%;background:#F7FAFF;border:2.5px solid #DCE9FF;border-radius:16px;padding:15px 18px;margin-top:12px;cursor:pointer;text-align:left}
+.agebtn:active{transform:scale(.98);background:#EAF3FF}
+.agebtn .em{font-size:34px;margin-right:14px}
+.agebtn .t1{font-size:19px;font-weight:700;color:#2b2f36}
+.agebtn .t2{font-size:13.5px;color:#7a8494;margin-top:3px}
+.opt{display:block;width:100%;text-align:left;background:#F7FAFF;border:2.5px solid #DCE9FF;border-radius:16px;padding:15px 18px;font-size:22px;margin-top:12px;cursor:pointer;color:#2b2f36}
+.opt:active{transform:scale(.98);background:#EAF3FF}
+.optgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.optgrid .opt{text-align:center;font-size:40px;padding:18px 8px}
+.q{font-size:24px;font-weight:700;line-height:1.65;margin:6px 0 4px}
+.qsmall{font-size:16px;color:#7a8494;margin-top:6px;line-height:1.6}
+.prog{height:10px;background:#EDF1F6;border-radius:6px;overflow:hidden;margin-top:14px}
+.prog>div{height:100%;background:linear-gradient(90deg,#3E8EDE,#1F5FA8);border-radius:6px;transition:width .3s}
+.topbar{display:flex;justify-content:space-between;align-items:center;font-size:15px;color:#7a8494}
+.pausebtn{background:#F1F5F9;border:none;border-radius:12px;padding:8px 14px;font-size:15px;color:#666;cursor:pointer}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:50}
+#overlay .card{margin:0 24px;text-align:center}
+.memshow{font-size:62px;font-weight:800;text-align:center;padding:44px 0;letter-spacing:6px;color:#1F5FA8;min-height:168px}
+.memhint{text-align:center;color:#7a8494;font-size:17px}
+.feedback{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%);font-size:60px;z-index:60;display:none;pointer-events:none}
+.bar{margin-top:14px}
+.bar .blabel{display:flex;justify-content:space-between;font-size:16px;margin-bottom:6px}
+.bartrack{height:16px;background:#F0F2F5;border-radius:9px;overflow:hidden}
+.barfill{height:100%;border-radius:9px}
+.warn{background:#FFF8E6;border:1.5px dashed #E8A93D;border-radius:14px;padding:14px 16px;font-size:14.5px;color:#8A5B00;line-height:1.8;margin-top:16px}
+.domainchip{display:inline-block;font-size:14px;font-weight:700;padding:5px 14px;border-radius:20px;color:#fff;margin-bottom:8px}
+.hide{display:none!important}
+.targetbox{text-align:center;font-size:20px;margin:10px 0}
+.targetbox .t{font-size:64px}
+.summary{font-size:16.5px;line-height:2;background:#F4F8FE;border-radius:14px;padding:16px;margin-top:14px}
+.bandtag{text-align:center;margin-top:6px}
+.bandtag span{display:inline-block;background:#EAF1FD;color:#1F5FA8;font-size:14px;font-weight:700;padding:5px 16px;border-radius:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 开始页 -->
+<div id="s-start" class="card">
+<h1>🔍 认知小观察 · 专业版</h1>
+<p class="sub">3岁 — 成人，全年龄段覆盖<br>先选年龄，再进对应题库</p>
+<div style="text-align:center;margin-top:10px">
+<span class="badge">🗣️ 语言理解</span><span class="badge">🧭 视觉空间</span><span class="badge">🧩 流体推理</span><span class="badge">🧠 工作记忆</span><span class="badge">⚡ 加工速度</span><span class="badge">👁️ 注意力</span><span class="badge">🎛️ 执行功能</span>
+</div>
+<div class="warn">⚠️ 这是<strong>原创的趣味筛查工具</strong>，题目按年龄段分级但<strong>未经标准化</strong>，不出 IQ 分数，不能作为诊断依据。正式评估请前往医院心理科等正规机构。</div>
+<button class="btn" onclick="show('s-age')">选择年龄 ▶</button>
+</div>
+
+<!-- 年龄选择页 -->
+<div id="s-age" class="card hide">
+<h1 style="font-size:24px">请选择年龄段</h1>
+<p class="sub">将进入该年龄段的专属题库</p>
+<div id="age-list" style="margin-top:8px"></div>
+<button class="btn ghost" onclick="show('s-start')">← 返回</button>
+</div>
+
+<!-- 维度介绍页 -->
+<div id="s-domain" class="card hide">
+<div class="bandtag"><span id="d-band"></span></div>
+<div style="text-align:center;margin-top:8px"><span id="d-chip" class="domainchip"></span></div>
+<h1 id="d-title" style="font-size:25px"></h1>
+<p class="sub" id="d-desc"></p>
+<p class="sub" id="d-note" style="color:#C26A00;font-weight:700"></p>
+<button class="btn" id="d-btn" onclick="beginDomain()">进入本轮 ▶</button>
+</div>
+
+<!-- 答题页 -->
+<div id="s-quiz" class="card hide">
+<div class="topbar"><span id="q-count"></span><button class="pausebtn" onclick="pauseGame()">⏸ 暂停</button></div>
+<div class="prog"><div id="q-prog"></div></div>
+<div id="q-body" style="margin-top:14px"></div>
+</div>
+
+<!-- 结果页 -->
+<div id="s-result" class="card hide">
+<h1>🎉 挑战完成！</h1>
+<div class="bandtag"><span id="r-band"></span></div>
+<p class="sub">四个方面的表现画像</p>
+<div id="r-bars"></div>
+<div class="summary" id="r-summary"></div>
+<div class="warn">⚠️ 本结果由原创、未经标准化的题目生成，仅反映本次作答情况，不代表智力水平，不能作为诊断依据。如需正式评估，请前往正规医疗机构心理科。</div>
+<button class="btn ghost" onclick="location.reload()">再测一次 🔁</button>
+</div>
+
+</div>
+
+<div id="overlay"><div class="card">
+<h1 style="font-size:24px">⏸ 已暂停</h1>
+<p class="sub">休息一下，不着急</p>
+<button class="btn" onclick="resumeGame()">继续 ▶</button>
+</div></div>
+<div class="feedback" id="fb"></div>
+
+<script>
+/* ============ 年龄段 ============ */
+const BANDS=[
+{label:"3 – 4 岁",em:"🧒",sub:"约10分钟 · 请家长陪同读题",parent:true},
+{label:"5 – 6 岁",em:"🧑‍🎒",sub:"约15分钟 · 可独立作答，家长可在旁",parent:true},
+{label:"7 – 9 岁",em:"📚",sub:"约20分钟",parent:false},
+{label:"10 – 12 岁",em:"💡",sub:"约25分钟",parent:false},
+{label:"13 – 17 岁",em:"🎯",sub:"约30分钟",parent:false},
+{label:"18 岁以上（成人）",em:"🧑‍💼",sub:"约35分钟",parent:false}];
+const DOMAINS=[
+{name:"语言理解",color:"#E8862E",desc:"词语、常识和简单推理。"},
+{name:"视觉空间",color:"#9B59B6",desc:"旋转、镜像、方位，考考空间感。"},
+{name:"流体推理",color:"#7C6FF0",desc:"看图形、数字找规律。"},
+{name:"工作记忆",color:"#2B9FD8",desc:"先记住屏幕上出现的内容，再回答。"},
+{name:"加工速度",color:"#3DBA6B",desc:"又快又准，每题尽量又快又对。"},
+{name:"注意力",color:"#E0506E",desc:"在干扰里找目标，要看仔细、看全。"},
+{name:"执行功能",color:"#0E9F8A",desc:"管住冲动、灵活切换规则。"}];
+const DEMOJI=["🗣️","🧭","🧩","🧠","⚡","👁️","🎛️"];
+/* b:年龄段 0=3-4,1=5-6,2=7-9,3=10-12,4=13-17,5=18+ | d:维度 | a:正确下标 */
+const ALL=[
+/* ===== b0 3-4岁 · 语言理解 ===== */
+{b:0,d:0,t:"choice",q:"哪个小动物会飞？",opts:["🐦","🐟","🐶"],a:0,grid:true},
+{b:0,d:0,t:"choice",q:"哪个是红色的？",opts:["🔵","🔴","🟢"],a:1,grid:true},
+{b:0,d:0,t:"choice",q:"哪个可以吃？",opts:["🍎","🚗","👕"],a:0,grid:true},
+{b:0,d:0,t:"choice",q:"哪个和别的不一样？",opts:["🐱","🐱","🐶"],a:2,grid:true},
+{b:0,d:0,t:"choice",q:"晚上挂在天上的是？",opts:["🌞","🌜","☁️"],a:1,grid:true},
+{b:0,d:0,t:"choice",q:"哪个动物最大？",opts:["🐘","🐭","🐱"],a:0,grid:true},
+/* ===== b0 3-4岁 · 视觉推理 ===== */
+{b:0,d:1,t:"choice",q:"🔴&nbsp;🔴&nbsp;🔵&nbsp;🔴&nbsp;🔴&nbsp;❓<br>下一个是什么颜色？",opts:["🔴","🔵","🟢"],a:1,grid:true},
+{b:0,d:1,t:"choice",q:"●&nbsp;○&nbsp;●&nbsp;○&nbsp;❓<br>下一个是什么？",opts:["●","○","■"],a:0,grid:true},
+{b:0,d:1,t:"choice",q:"1&nbsp;2&nbsp;1&nbsp;2&nbsp;❓<br>下一个数字是？",opts:["1","2","3"],a:0,grid:true},
+{b:0,d:1,t:"choice",q:"🍎&nbsp;🍎&nbsp;🍎<br>有几个苹果？",opts:["2个","3个","4个"],a:1},
+{b:0,d:1,t:"choice",q:"哪个和 🍎 一样？",opts:["🍐","🍎","🍌"],a:1,grid:true},
+{b:0,d:1,t:"choice",q:"⬆&nbsp;⬇&nbsp;⬆&nbsp;⬇&nbsp;❓<br>下一个箭头指向？",opts:["⬆","⬇","⬅"],a:0,grid:true},
+/* ===== b0 3-4岁 · 工作记忆 ===== */
+{b:0,d:2,t:"mem",seq:["🐱","🐶"],mode:"words",q:"刚才看到了哪两个小动物？",opts:["🐱🐶","🐱🐱","🐶🐰"],a:0},
+{b:0,d:2,t:"mem",seq:["🔴","🔵"],mode:"words",q:"先看到的颜色、后看到的颜色是？",opts:["🔴🔵","🔵🔴","🔴🔴"],a:0},
+{b:0,d:2,t:"mem",seq:["⭐"],mode:"words",q:"刚才看到了什么？",opts:["⭐","🍎","🚗"],a:0,grid:true},
+{b:0,d:2,t:"mem",seq:["🍌","🍇","🍉"],mode:"words",q:"刚才看到的水果，按顺序是？",opts:["🍌🍇🍉","🍌🍉🍇","🍇🍌🍉"],a:0},
+{b:0,d:2,t:"mem",seq:["🐘"],mode:"words",q:"刚才看到的是谁？",opts:["🐘","🐭","🐱"],a:0,grid:true},
+{b:0,d:2,t:"mem",seq:["🟡","🟢","🔵"],mode:"words",q:"刚才看到的三个颜色，按顺序是？",opts:["🟡🟢🔵","🟢🟡🔵","🟡🔵🟢"],a:0},
+/* ===== b0 3-4岁 · 加工速度 ===== */
+{b:0,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🍎",opts:["🍎","🍐","🍌"],a:0,grid:true},
+{b:0,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🐶",opts:["🐱","🐶","🐰"],a:1,grid:true},
+{b:0,d:3,t:"speed",q:"⭐&nbsp;⭐<br>有几个星星？",opts:["1个","2个","3个"],a:1},
+{b:0,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🔴",opts:["🔵","🟢","🔴"],a:2,grid:true},
+{b:0,d:3,t:"speed",q:"找出不一样的那一个：",opts:["🌞","🌞","🌜"],a:2,grid:true},
+{b:0,d:3,t:"speed",q:"找到和下面这个一样的：",target:"⚽",opts:["⚽","🏀","🎾"],a:0,grid:true},
+/* ===== b1 5-6岁 · 语言理解 ===== */
+{b:1,d:0,t:"choice",q:"下面哪个和其他三个不是一类？",opts:["苹果","香蕉","梨","小狗"],a:3},
+{b:1,d:0,t:"choice",q:"下面哪个和其他三个不是一类？",opts:["跑步","游泳","跳绳","桌子"],a:3},
+{b:1,d:0,t:"choice",q:"哪个是交通工具？",opts:["汽车","苹果","小狗"],a:0},
+{b:1,d:0,t:"choice",q:"小鸟有几条腿？",opts:["2条","4条","6条"],a:0},
+{b:1,d:0,t:"choice",q:"一年有几个季节？",opts:["2个","3个","4个"],a:2},
+{b:1,d:0,t:"choice",q:"冰受热会变成什么？",opts:["水","石头","沙子"],a:0},
+{b:1,d:0,t:"choice",q:"哪个词和其他两个意思不一样？",opts:["高兴","开心","难过"],a:2},
+{b:1,d:0,t:"choice",q:"下雨天出门要带什么？",opts:["雨伞","墨镜","扇子"],a:0},
+/* ===== b1 5-6岁 · 视觉推理 ===== */
+{b:1,d:1,t:"choice",q:"🔴&nbsp;🔵&nbsp;🔴&nbsp;🔵&nbsp;❓<br>下一个是什么？",opts:["🔴","🔵","🟢","🟡"],a:0,grid:true},
+{b:1,d:1,t:"choice",q:"▲&nbsp;▲&nbsp;■&nbsp;▲&nbsp;▲&nbsp;❓<br>下一个是什么？",opts:["▲","■","●","★"],a:1,grid:true},
+{b:1,d:1,t:"choice",q:"●&nbsp;●&nbsp;○&nbsp;●&nbsp;●&nbsp;○&nbsp;❓<br>下一个是什么？",opts:["●","○","■","▲"],a:0,grid:true},
+{b:1,d:1,t:"choice",q:"3&nbsp;2&nbsp;1&nbsp;3&nbsp;2&nbsp;❓<br>下一个数字是？",opts:["1","2","3","4"],a:0,grid:true},
+{b:1,d:1,t:"choice",q:"🍎&nbsp;🍎&nbsp;🍎&nbsp;🍎<br>有几个苹果？",opts:["3个","4个","5个","6个"],a:1},
+{b:1,d:1,t:"choice",q:"↑&nbsp;→&nbsp;↓&nbsp;❓<br>下一个箭头指向哪？",opts:["←","↑","→","↓"],a:0,grid:true},
+{b:1,d:1,t:"choice",q:"◐&nbsp;◑&nbsp;◒&nbsp;❓<br>下一个图形是？",opts:["◓","◐","◑","●"],a:0,grid:true},
+{b:1,d:1,t:"choice",q:"🌞&nbsp;🌜&nbsp;🌞&nbsp;🌜&nbsp;🌞&nbsp;❓<br>下一个是什么？",opts:["🌞","🌜","⭐","🌈"],a:1,grid:true},
+/* ===== b1 5-6岁 · 工作记忆 ===== */
+{b:1,d:2,t:"mem",seq:["4","9"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["4 - 9","9 - 4","4 - 4"],a:0},
+{b:1,d:2,t:"mem",seq:["2","7","5"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["2 - 7 - 5","5 - 7 - 2","7 - 2 - 5"],a:0},
+{b:1,d:2,t:"mem",seq:["8","1","6","3"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["8 - 1 - 6 - 3","3 - 6 - 1 - 8","1 - 8 - 3 - 6"],a:0},
+{b:1,d:2,t:"mem",seq:["5","2"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["2 - 5","5 - 2","2 - 2"],a:0},
+{b:1,d:2,t:"mem",seq:["9","4","7"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["7 - 4 - 9","9 - 4 - 7","4 - 9 - 7"],a:0},
+{b:1,d:2,t:"mem",seq:["猫","狗"],mode:"words",q:"刚才看到了哪两个小动物？",opts:["猫狗","猫鸟","狗鱼"],a:0},
+{b:1,d:2,t:"mem",seq:["红","黄","蓝"],mode:"words",q:"刚才没有出现的颜色是？",opts:["红","黄","绿"],a:2},
+{b:1,d:2,t:"mem",seq:["3","8","1","9","4"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["3 - 8 - 1 - 9 - 4","4 - 9 - 1 - 8 - 3","8 - 3 - 4 - 9 - 1"],a:0},
+/* ===== b1 5-6岁 · 加工速度 ===== */
+{b:1,d:3,t:"speed",q:"找到和下面这个一样的：",target:"⭐",opts:["🌟","⭐","✨","💫"],a:1,grid:true},
+{b:1,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🍓",opts:["🍒","🍓","🍑","🍉"],a:1,grid:true},
+{b:1,d:3,t:"speed",q:"🎈&nbsp;🎀&nbsp;🎈&nbsp;🎀&nbsp;🎈<br>有几个 🎈？",opts:["2个","3个","4个"],a:1},
+{b:1,d:3,t:"speed",q:"找出不一样的那一个：",opts:["🍎","🍎","🍐","🍎"],a:2,grid:true},
+{b:1,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🔑",opts:["🔒","🔑","🔨","🔧"],a:1,grid:true},
+{b:1,d:3,t:"speed",q:"🐶&nbsp;🐱&nbsp;🐶&nbsp;🐱&nbsp;🐶&nbsp;🐱<br>有几个 🐱？",opts:["2个","3个","4个"],a:1},
+{b:1,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🐟",opts:["🐬","🐟","🐳","🦈"],a:1,grid:true},
+{b:1,d:3,t:"speed",q:"找出不一样的那一个：",opts:["🔵","🔵","🟢","🔵"],a:2,grid:true},
+/* ===== b2 7-9岁 · 语言理解 ===== */
+{b:2,d:0,t:"choice",q:"下面哪个和其他三个不是一类？",opts:["苹果","香蕉","梨","小狗"],a:3},
+{b:2,d:0,t:"choice",q:"下面哪个和其他三个不是一类？",opts:["跑步","游泳","跳绳","椅子"],a:3},
+{b:2,d:0,t:"choice",q:"下面哪个和其他三个不是一类？",opts:["医生","老师","汽车","护士"],a:2},
+{b:2,d:0,t:"choice",q:"“眉开眼笑”形容一个人？",opts:["很高兴","很生气","很难过","很害怕"],a:0},
+{b:2,d:0,t:"choice",q:"哪一对是反义词？",opts:["大 — 小","红 — 蓝","跑 — 跳","吃 — 喝"],a:0},
+{b:2,d:0,t:"choice",q:"冬天穿厚衣服，主要是为了？",opts:["保暖","好看","方便跑步","显得精神"],a:0},
+{b:2,d:0,t:"choice",q:"在图书馆里应该？",opts:["保持安静","大声说话","跑来跑去","吃零食"],a:0},
+{b:2,d:0,t:"choice",q:"下面哪一句是完整的句子？",opts:["苹果红","小明在操场上踢足球","因为所以","书包里"],a:1},
+{b:2,d:0,t:"choice",q:"“画蛇添足”的意思是？",opts:["多此一举","画得很好","蛇很可怕","足球比赛"],a:0},
+/* ===== b2 7-9岁 · 视觉推理 ===== */
+{b:2,d:1,t:"choice",q:"🔴&nbsp;🔵&nbsp;🔴&nbsp;🔵&nbsp;❓<br>下一个是什么？",opts:["🔴","🔵","🟢","🟡"],a:0,grid:true},
+{b:2,d:1,t:"choice",q:"▲&nbsp;▲&nbsp;■&nbsp;▲&nbsp;▲&nbsp;❓<br>下一个是什么？",opts:["▲","■","●","★"],a:1,grid:true},
+{b:2,d:1,t:"choice",q:"2&nbsp;4&nbsp;6&nbsp;8&nbsp;❓<br>下一个数字是？",opts:["9","10","11","12"],a:1,grid:true},
+{b:2,d:1,t:"choice",q:"●&nbsp;●&nbsp;○&nbsp;●&nbsp;●&nbsp;○&nbsp;●&nbsp;●&nbsp;❓<br>下一个是什么？",opts:["●","○","■","▲"],a:1,grid:true},
+{b:2,d:1,t:"choice",q:"5&nbsp;10&nbsp;15&nbsp;❓<br>下一个数字是？",opts:["18","20","25","30"],a:1,grid:true},
+{b:2,d:1,t:"choice",q:"◆&nbsp;◇&nbsp;◆&nbsp;◇&nbsp;◆&nbsp;❓<br>下一个是什么？",opts:["◆","◇","●","■"],a:1,grid:true},
+{b:2,d:1,t:"choice",q:"1&nbsp;1&nbsp;2&nbsp;3&nbsp;5&nbsp;❓<br>下一个数字是？（前两个相加）",opts:["6","7","8","9"],a:2,grid:true},
+{b:2,d:1,t:"choice",q:"→&nbsp;↑&nbsp;→&nbsp;↑&nbsp;→&nbsp;❓<br>下一个箭头指向？",opts:["→","↑","←","↓"],a:1,grid:true},
+{b:2,d:1,t:"choice",q:"🟥&nbsp;🟧&nbsp;🟨&nbsp;🟥&nbsp;🟧&nbsp;❓<br>下一个是什么颜色？",opts:["🟥","🟧","🟨","🟩"],a:2,grid:true},
+/* ===== b2 7-9岁 · 工作记忆 ===== */
+{b:2,d:2,t:"mem",seq:["4","9","2"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["4 - 9 - 2","2 - 9 - 4","9 - 4 - 2","4 - 2 - 9"],a:0},
+{b:2,d:2,t:"mem",seq:["7","1","5","3"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["7 - 1 - 5 - 3","3 - 5 - 1 - 7","1 - 7 - 3 - 5","7 - 3 - 5 - 1"],a:0},
+{b:2,d:2,t:"mem",seq:["2","8","4","6","9"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["2 - 8 - 4 - 6 - 9","9 - 6 - 4 - 8 - 2","8 - 2 - 9 - 6 - 4","2 - 4 - 8 - 9 - 6"],a:0},
+{b:2,d:2,t:"mem",seq:["6","2","8"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["8 - 2 - 6","6 - 2 - 8","2 - 8 - 6","8 - 6 - 2"],a:0},
+{b:2,d:2,t:"mem",seq:["3","9","1","5"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["5 - 1 - 9 - 3","3 - 9 - 1 - 5","1 - 5 - 3 - 9","9 - 3 - 5 - 1"],a:0},
+{b:2,d:2,t:"mem",seq:["猫","树","书"],mode:"words",q:"刚才出现了哪个词？",opts:["书","狗","花","鸟"],a:0},
+{b:2,d:2,t:"mem",seq:["红","黄","蓝","绿"],mode:"words",q:"刚才没有出现的是哪个？",opts:["红","黄","紫","蓝"],a:2},
+{b:2,d:2,t:"mem",seq:["9","4","7","2","5","8"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["9 - 4 - 7 - 2 - 5 - 8","8 - 5 - 2 - 7 - 4 - 9","4 - 9 - 8 - 5 - 7 - 2","9 - 7 - 4 - 8 - 2 - 5"],a:0},
+{b:2,d:2,t:"mem",seq:["8","3","6","1"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["1 - 6 - 3 - 8","8 - 3 - 6 - 1","6 - 1 - 8 - 3","3 - 8 - 1 - 6"],a:0},
+/* ===== b2 7-9岁 · 加工速度 ===== */
+{b:2,d:3,t:"speed",q:"找到和下面这个一样的：",target:"⭐",opts:["🌟","⭐","✨","💫","🌙","☀"],a:1,grid:true},
+{b:2,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🍓",opts:["🍒","🍓","🍑","🍉","🍇","🥝"],a:1,grid:true},
+{b:2,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🔑",opts:["🔒","🔑","🔨","🔧","🔩","⚙"],a:1,grid:true},
+{b:2,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🐟",opts:["🐬","🐳","🐟","🦈","🐙","🦀"],a:2,grid:true},
+{b:2,d:3,t:"speed",q:"找到和下面这个一样的：",target:"✈️",opts:["🚗","✈️","🚂","🚢","🚀","🚁"],a:1,grid:true},
+{b:2,d:3,t:"speed",q:"🎈&nbsp;🎀&nbsp;🎈&nbsp;🎀&nbsp;🎈&nbsp;🎀&nbsp;🎈<br>里面有几个 🎈？",opts:["3个","4个","5个","6个"],a:1},
+{b:2,d:3,t:"speed",q:"🐶&nbsp;🐱&nbsp;🐶&nbsp;🐱&nbsp;🐶&nbsp;🐱&nbsp;🐶&nbsp;🐱<br>里面有几个 🐱？",opts:["3个","4个","5个","6个"],a:1},
+{b:2,d:3,t:"speed",q:"找出不一样的那一个：",opts:["🍎","🍎","🍎","🍐","🍎","🍎"],a:3,grid:true},
+{b:2,d:3,t:"speed",q:"找出不一样的那一个：",opts:["🔵","🔵","🟢","🔵","🔵","🔵"],a:2,grid:true},
+/* ===== b3 10-12岁 · 语言理解 ===== */
+{b:3,d:0,t:"choice",q:"鲸鱼、海豚、蝙蝠、鲨鱼，哪个不是哺乳动物？",opts:["鲸鱼","海豚","鲨鱼","蝙蝠"],a:2},
+{b:3,d:0,t:"choice",q:"下面哪个和其他三个不是一类？",opts:["小说","诗歌","散文","菜谱"],a:3},
+{b:3,d:0,t:"choice",q:"“雪中送炭”的意思是？",opts:["在别人困难时给予帮助","下雪天送衣服","炭很贵","冬天很冷"],a:0},
+{b:3,d:0,t:"choice",q:"下面哪一组是近义词？",opts:["高兴 — 愉快","寒冷 — 炎热","快 — 慢","大 — 小"],a:0},
+{b:3,d:0,t:"choice",q:"所有的猫都会爬树，小花是只猫。那么？",opts:["小花会爬树","小花不会爬树","无法判断","小花是狗"],a:0},
+{b:3,d:0,t:"choice",q:"“一箭双雕”的意思是？",opts:["做一件事收获两份好处","射箭很准","雕很难画","一次只做一件事"],a:0},
+{b:3,d:0,t:"choice",q:"下面哪句话有语病？",opts:["他把苹果吃了","我昨天去公园玩得很开心","通过老师的教育，使我认识了错误","天气真好"],a:2},
+{b:3,d:0,t:"choice",q:"地球绕太阳转一圈大约需要？",opts:["一天","一个月","一年","十年"],a:2},
+{b:3,d:0,t:"choice",q:"下面哪个不是中国传统节日？",opts:["春节","中秋节","圣诞节","端午节"],a:2},
+{b:3,d:0,t:"choice",q:"“守株待兔”告诉我们什么道理？",opts:["不要心存侥幸，要靠努力","兔子很可爱","树桩很有用","要保护动物"],a:0},
+/* ===== b3 10-12岁 · 视觉推理 ===== */
+{b:3,d:1,t:"choice",q:"3&nbsp;6&nbsp;9&nbsp;12&nbsp;❓<br>下一个数字是？",opts:["13","14","15","16"],a:2,grid:true},
+{b:3,d:1,t:"choice",q:"100&nbsp;90&nbsp;80&nbsp;❓<br>下一个数字是？",opts:["70","60","75","85"],a:0,grid:true},
+{b:3,d:1,t:"choice",q:"1&nbsp;4&nbsp;9&nbsp;16&nbsp;❓<br>下一个数字是？",opts:["20","24","25","30"],a:2,grid:true},
+{b:3,d:1,t:"choice",q:"A&nbsp;C&nbsp;E&nbsp;G&nbsp;❓<br>下一个字母是？",opts:["H","I","J","K"],a:1,grid:true},
+{b:3,d:1,t:"choice",q:"🔺&nbsp;🔻&nbsp;🔺&nbsp;🔻&nbsp;🔺&nbsp;❓<br>下一个是什么？",opts:["🔺","🔻","🔸","🔹"],a:1,grid:true},
+{b:3,d:1,t:"choice",q:"1&nbsp;2&nbsp;4&nbsp;8&nbsp;❓<br>下一个数字是？",opts:["10","12","16","14"],a:2,grid:true},
+{b:3,d:1,t:"choice",q:"⬛&nbsp;⬜&nbsp;⬛&nbsp;⬜&nbsp;⬛&nbsp;❓<br>下一个是什么？",opts:["⬛","⬜","◼","◻"],a:1,grid:true},
+{b:3,d:1,t:"choice",q:"5&nbsp;3&nbsp;6&nbsp;4&nbsp;7&nbsp;❓<br>下一个数字是？（-2，+3交替）",opts:["4","5","6","8"],a:1,grid:true},
+{b:3,d:1,t:"choice",q:"🌕&nbsp;🌖&nbsp;🌗&nbsp;🌘&nbsp;🌑&nbsp;❓<br>下一个月相是？",opts:["🌒","🌕","🌔","🌑"],a:0,grid:true},
+{b:3,d:1,t:"choice",q:"9&nbsp;7&nbsp;5&nbsp;3&nbsp;❓<br>下一个数字是？",opts:["1","2","0","4"],a:0,grid:true},
+/* ===== b3 10-12岁 · 工作记忆 ===== */
+{b:3,d:2,t:"mem",seq:["4","9","2","7"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["4 - 9 - 2 - 7","7 - 2 - 9 - 4","9 - 4 - 7 - 2","4 - 2 - 7 - 9"],a:0},
+{b:3,d:2,t:"mem",seq:["7","1","5","3","8"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["7 - 1 - 5 - 3 - 8","8 - 3 - 5 - 1 - 7","1 - 7 - 8 - 3 - 5","7 - 5 - 1 - 8 - 3"],a:0},
+{b:3,d:2,t:"mem",seq:["2","8","4","6","9","1"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["2 - 8 - 4 - 6 - 9 - 1","1 - 9 - 6 - 4 - 8 - 2","8 - 2 - 1 - 9 - 6 - 4","2 - 4 - 8 - 1 - 9 - 6"],a:0},
+{b:3,d:2,t:"mem",seq:["5","3","9","1","7","4","2"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["5 - 3 - 9 - 1 - 7 - 4 - 2","2 - 4 - 7 - 1 - 9 - 3 - 5","3 - 5 - 2 - 4 - 7 - 9 - 1","5 - 9 - 3 - 2 - 1 - 4 - 7"],a:0},
+{b:3,d:2,t:"mem",seq:["6","2","8","4"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["4 - 8 - 2 - 6","6 - 2 - 8 - 4","8 - 4 - 6 - 2","2 - 6 - 4 - 8"],a:0},
+{b:3,d:2,t:"mem",seq:["3","9","1","5","7"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["7 - 5 - 1 - 9 - 3","3 - 9 - 1 - 5 - 7","9 - 3 - 7 - 5 - 1","5 - 7 - 3 - 1 - 9"],a:0},
+{b:3,d:2,t:"mem",seq:["苹果","火车","月亮","尺子"],mode:"words",q:"刚才出现了哪个词？",opts:["火车","汽车","飞机","轮船"],a:0},
+{b:3,d:2,t:"mem",seq:["春","夏","秋","冬","梅"],mode:"words",q:"刚才没有出现的是哪个字？",opts:["春","竹","秋","冬"],a:1},
+{b:3,d:2,t:"mem",seq:["8","5","2","9","4","7","1"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["8 - 5 - 2 - 9 - 4 - 7 - 1","1 - 7 - 4 - 9 - 2 - 5 - 8","5 - 8 - 1 - 4 - 7 - 9 - 2","8 - 2 - 5 - 1 - 9 - 4 - 7"],a:0},
+{b:3,d:2,t:"mem",seq:["9","2","6","4","8","1"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["1 - 8 - 4 - 6 - 2 - 9","9 - 2 - 6 - 4 - 8 - 1","2 - 9 - 1 - 8 - 4 - 6","6 - 4 - 8 - 1 - 2 - 9"],a:0},
+/* ===== b3 10-12岁 · 加工速度 ===== */
+{b:3,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🎯",opts:["🏹","🎯","🎪","🎭","🎨","🎬"],a:1,grid:true},
+{b:3,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🧭",opts:["🧳","🧭","🧱","🧲","🧪","🧫"],a:1,grid:true},
+{b:3,d:3,t:"speed",q:"★&nbsp;☆&nbsp;★&nbsp;☆&nbsp;★&nbsp;★&nbsp;☆&nbsp;★<br>里面有几个 ★？",opts:["4个","5个","6个","7个"],a:1},
+{b:3,d:3,t:"speed",q:"找出不一样的那一个：",opts:["🍇","🍇","🍇","🍈","🍇","🍇"],a:3,grid:true},
+{b:3,d:3,t:"speed",q:"下面哪个数最大？",opts:["47","74","64","46"],a:1,grid:true},
+{b:3,d:3,t:"speed",q:"下面哪个数最小？",opts:["83","38","88","33"],a:3,grid:true},
+{b:3,d:3,t:"speed",q:"找出不一样的那一个：",opts:["🟥","🟥","🟥","🟧","🟥","🟥"],a:3,grid:true},
+{b:3,d:3,t:"speed",q:"🔺&nbsp;🔻&nbsp;🔺&nbsp;🔺&nbsp;🔻&nbsp;🔺<br>里面有几个 🔺？",opts:["3个","4个","5个","6个"],a:1},
+{b:3,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🦄",opts:["🐴","🦄","🐮","🐷","🐭","🐹"],a:1,grid:true},
+{b:3,d:3,t:"speed",q:"找出不一样的那一个：",opts:["🍉","🍉","🍉","🍊","🍉","🍉"],a:3,grid:true},
+/* ===== b4 13-17岁 · 语言理解 ===== */
+{b:4,d:0,t:"choice",q:"鲸鱼、海豚、蝙蝠、鲨鱼，哪个不是哺乳动物？",opts:["鲸鱼","海豚","鲨鱼","蝙蝠"],a:2},
+{b:4,d:0,t:"choice",q:"“买椟还珠”讽刺的是？",opts:["舍本逐末","很会做生意","珠宝很贵","盒子好看"],a:0},
+{b:4,d:0,t:"choice",q:"下面哪一组都是褒义词？",opts:["勤劳 — 善良","狡猾 — 虚伪","胆小 — 自私","粗心 — 懒惰"],a:0},
+{b:4,d:0,t:"choice",q:"所有金属都导电，铜是金属。所以？",opts:["铜导电","铜不导电","无法判断","铜是塑料"],a:0},
+{b:4,d:0,t:"choice",q:"“纸上谈兵”指的是？",opts:["空谈理论、不切实际","很会写字","士兵很勇敢","纸很贵"],a:0},
+{b:4,d:0,t:"choice",q:"“光年”是哪种单位？",opts:["时间单位","长度单位","速度单位","重量单位"],a:1},
+{b:4,d:0,t:"choice",q:"哪个成语形容医术高明？",opts:["妙手回春","画蛇添足","守株待兔","叶公好龙"],a:0},
+{b:4,d:0,t:"choice",q:"“己所不欲，勿施于人”出自？",opts:["《论语》","《史记》","《诗经》","《孙子兵法》"],a:0},
+{b:4,d:0,t:"choice",q:"“通过这次活动，使我增长了见识。”这句话的毛病是？",opts:["缺主语","缺宾语","用词不当","没有毛病"],a:0},
+{b:4,d:0,t:"choice",q:"成年人身体里水的含量大约是？",opts:["30%","60%","90%","10%"],a:1},
+{b:4,d:0,t:"choice",q:"“破釜沉舟”形容？",opts:["下定决心干到底","船坏了","做饭好吃","水很深"],a:0},
+/* ===== b4 13-17岁 · 视觉推理 ===== */
+{b:4,d:1,t:"choice",q:"2&nbsp;6&nbsp;12&nbsp;20&nbsp;30&nbsp;❓<br>下一个数字是？",opts:["36","40","42","44"],a:2,grid:true},
+{b:4,d:1,t:"choice",q:"1&nbsp;3&nbsp;6&nbsp;10&nbsp;15&nbsp;❓<br>下一个数字是？",opts:["18","20","21","25"],a:2,grid:true},
+{b:4,d:1,t:"choice",q:"81&nbsp;27&nbsp;9&nbsp;3&nbsp;❓<br>下一个数字是？",opts:["1","2","0","6"],a:0,grid:true},
+{b:4,d:1,t:"choice",q:"Z&nbsp;X&nbsp;V&nbsp;T&nbsp;❓<br>下一个字母是？（倒序隔一个）",opts:["R","S","Q","P"],a:0,grid:true},
+{b:4,d:1,t:"choice",q:"1&nbsp;8&nbsp;27&nbsp;64&nbsp;❓<br>下一个数字是？",opts:["100","120","125","216"],a:2,grid:true},
+{b:4,d:1,t:"choice",q:"3&nbsp;3&nbsp;6&nbsp;18&nbsp;72&nbsp;❓<br>下一个数字是？（×1 ×2 ×3 ×4 …）",opts:["144","216","360","720"],a:2,grid:true},
+{b:4,d:1,t:"choice",q:"◢&nbsp;◣&nbsp;◤&nbsp;◥&nbsp;◢&nbsp;❓<br>下一个图形是？",opts:["◢","◣","◤","◥"],a:1,grid:true},
+{b:4,d:1,t:"choice",q:"20&nbsp;17&nbsp;13&nbsp;8&nbsp;❓<br>下一个数字是？（-3 -4 -5 …）",opts:["1","2","3","4"],a:1,grid:true},
+{b:4,d:1,t:"choice",q:"🕐&nbsp;🕑&nbsp;🕓&nbsp;🕗&nbsp;❓<br>下一个钟表是？（小时数翻倍）",opts:["🕓","🕔","🕙","🕛"],a:0,grid:true},
+{b:4,d:1,t:"choice",q:"7&nbsp;14&nbsp;13&nbsp;26&nbsp;25&nbsp;❓<br>下一个数字是？（×2 -1交替）",opts:["48","50","52","24"],a:1,grid:true},
+{b:4,d:1,t:"choice",q:"A1&nbsp;C3&nbsp;F6&nbsp;J10&nbsp;❓<br>下一个是？",opts:["N14","O15","P16","M13"],a:1,grid:true},
+/* ===== b4 13-17岁 · 工作记忆 ===== */
+{b:4,d:2,t:"mem",seq:["4","9","2","7","5"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["4 - 9 - 2 - 7 - 5","5 - 7 - 2 - 9 - 4","9 - 4 - 5 - 7 - 2","4 - 2 - 9 - 5 - 7"],a:0},
+{b:4,d:2,t:"mem",seq:["7","1","5","3","8","2"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["7 - 1 - 5 - 3 - 8 - 2","2 - 8 - 3 - 5 - 1 - 7","1 - 7 - 2 - 8 - 3 - 5","7 - 5 - 1 - 2 - 8 - 3"],a:0},
+{b:4,d:2,t:"mem",seq:["2","8","4","6","9","1","3"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["2 - 8 - 4 - 6 - 9 - 1 - 3","3 - 1 - 9 - 6 - 4 - 8 - 2","8 - 2 - 3 - 1 - 9 - 6 - 4","2 - 4 - 8 - 3 - 1 - 9 - 6"],a:0},
+{b:4,d:2,t:"mem",seq:["5","3","9","1","7","4","2","6"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["5 - 3 - 9 - 1 - 7 - 4 - 2 - 6","6 - 2 - 4 - 7 - 1 - 9 - 3 - 5","3 - 5 - 6 - 2 - 4 - 7 - 9 - 1","5 - 9 - 3 - 6 - 1 - 4 - 7 - 2"],a:0},
+{b:4,d:2,t:"mem",seq:["6","2","8","4","9"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["9 - 4 - 8 - 2 - 6","6 - 2 - 8 - 4 - 9","2 - 6 - 9 - 4 - 8","8 - 4 - 6 - 9 - 2"],a:0},
+{b:4,d:2,t:"mem",seq:["3","9","1","5","7","2"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["2 - 7 - 5 - 1 - 9 - 3","3 - 9 - 1 - 5 - 7 - 2","9 - 3 - 2 - 7 - 5 - 1","7 - 5 - 3 - 1 - 9 - 2"],a:0},
+{b:4,d:2,t:"mem",seq:["灯塔","葡萄","火车","月亮","尺子"],mode:"words",q:"刚才出现了哪个词？",opts:["葡萄","苹果","西瓜","香蕉"],a:0},
+{b:4,d:2,t:"mem",seq:["梅","兰","竹","菊","松"],mode:"words",q:"刚才没有出现的是哪个字？",opts:["兰","荷","菊","松"],a:1},
+{b:4,d:2,t:"mem",seq:["8","5","2","9","4","7","1","3"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["8 - 5 - 2 - 9 - 4 - 7 - 1 - 3","3 - 1 - 7 - 4 - 9 - 2 - 5 - 8","5 - 8 - 3 - 1 - 7 - 4 - 9 - 2","8 - 2 - 5 - 3 - 9 - 4 - 7 - 1"],a:0},
+{b:4,d:2,t:"mem",seq:["9","2","6","4","8","1","5"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["5 - 1 - 8 - 4 - 6 - 2 - 9","9 - 2 - 6 - 4 - 8 - 1 - 5","2 - 9 - 5 - 1 - 8 - 4 - 6","6 - 4 - 8 - 5 - 1 - 2 - 9"],a:0},
+{b:4,d:2,t:"mem",seq:["桥","湖","岛","塔"],mode:"words",q:"刚才出现的第 3 个词是？",opts:["桥","湖","岛","塔"],a:2},
+/* ===== b4 13-17岁 · 加工速度 ===== */
+{b:4,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🧬",opts:["🔬","🧬","🧪","💊","🩺","🌡"],a:1,grid:true},
+{b:4,d:3,t:"speed",q:"下面哪个数最大？",opts:["987","978","897","879"],a:0,grid:true},
+{b:4,d:3,t:"speed",q:"下面哪个数最小？",opts:["601","610","106","160"],a:2,grid:true},
+{b:4,d:3,t:"speed",q:"●&nbsp;○&nbsp;●&nbsp;●&nbsp;○&nbsp;●&nbsp;○&nbsp;○&nbsp;●<br>里面有几个 ●？",opts:["4个","5个","6个","7个"],a:1},
+{b:4,d:3,t:"speed",q:"找出不一样的那一个：",opts:["⬆","⬆","⬆","⬇","⬆","⬆"],a:3,grid:true},
+{b:4,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🛸",opts:["🚀","🛸","🛰","🛩","🚁","✈️"],a:1,grid:true},
+{b:4,d:3,t:"speed",q:"3 + 5 × 2 = ？",opts:["13","16","11","10"],a:0,grid:true},
+{b:4,d:3,t:"speed",q:"找出不一样的那一个：",opts:["🍉","🍉","🍉","🍊","🍉","🍉"],a:3,grid:true},
+{b:4,d:3,t:"speed",q:"找到和下面这个一样的：",target:"⌛",opts:["⏰","⌛","⏱","🕰","⏲","🕛"],a:1,grid:true},
+{b:4,d:3,t:"speed",q:"48 + 27 = ？",opts:["65","75","85","70"],a:1,grid:true},
+{b:4,d:3,t:"speed",q:"■&nbsp;□&nbsp;■&nbsp;■&nbsp;□&nbsp;■&nbsp;□&nbsp;■&nbsp;■<br>里面有几个 ■？",opts:["4个","5个","6个","7个"],a:1},
+/* ===== b5 18岁+ · 语言理解 ===== */
+{b:5,d:0,t:"choice",q:"演绎、归纳、类比、烹饪，哪个不是推理方法？",opts:["演绎","归纳","类比","烹饪"],a:3},
+{b:5,d:0,t:"choice",q:"“屠龙之技”比喻？",opts:["本领虽高却不切实用","很会杀龙","技术高超","龙很可怕"],a:0},
+{b:5,d:0,t:"choice",q:"下面哪项属于“沉没成本”？",opts:["已经花掉、要不回来的钱","未来的预算","别人的投资","银行存款"],a:0},
+{b:5,d:0,t:"choice",q:"“奥卡姆剃刀”主张？",opts:["解释力相同时，越简单的解释越好","事情越复杂越好","不要用刀","怀疑一切"],a:0},
+{b:5,d:0,t:"choice",q:"有些花是红的，玫瑰是花。所以？",opts:["有些玫瑰是红的","无法必然推出结论","所有玫瑰都是红的","红的都是玫瑰"],a:1},
+{b:5,d:0,t:"choice",q:"“幸存者偏差”指的是？",opts:["只看到成功者而忽略失败者","幸存的人很幸运","偏差需要纠正","统计都很准确"],a:0},
+{b:5,d:0,t:"choice",q:"通货膨胀通常是指？",opts:["物价普遍持续上涨","东西越来越便宜","工资上涨","货币升值"],a:0},
+{b:5,d:0,t:"choice",q:"“刻舟求剑”讽刺的是？",opts:["拘泥成法、不知变通","剑很贵","船很快","江水很深"],a:0},
+{b:5,d:0,t:"choice",q:"下面哪个是复句？",opts:["我吃饭","因为下雨，所以比赛取消了","天气好","他跑步"],a:1},
+{b:5,d:0,t:"choice",q:"“黑天鹅事件”指的是？",opts:["难以预测的小概率高影响事件","黑色的天鹅","夜晚发生的事","动物迁徙"],a:0},
+{b:5,d:0,t:"choice",q:"机会成本是指？",opts:["为选择而放弃的最高价值","买东西花的钱","时间就是金钱","免费的东西"],a:0},
+{b:5,d:0,t:"choice",q:"“南辕北辙”形容？",opts:["行动与目标相反","车技不好","路很远","方向感强"],a:0},
+/* ===== b5 18岁+ · 视觉推理 ===== */
+{b:5,d:1,t:"choice",q:"2&nbsp;3&nbsp;5&nbsp;9&nbsp;17&nbsp;❓<br>下一个数字是？（×2-1）",opts:["25","33","34","31"],a:1,grid:true},
+{b:5,d:1,t:"choice",q:"4&nbsp;9&nbsp;16&nbsp;25&nbsp;36&nbsp;❓<br>下一个数字是？",opts:["42","45","49","48"],a:2,grid:true},
+{b:5,d:1,t:"choice",q:"1&nbsp;2&nbsp;6&nbsp;24&nbsp;120&nbsp;❓<br>下一个数字是？",opts:["600","720","840","240"],a:1,grid:true},
+{b:5,d:1,t:"choice",q:"3&nbsp;7&nbsp;16&nbsp;35&nbsp;74&nbsp;❓<br>下一个数字是？",opts:["148","150","153","160"],a:2,grid:true},
+{b:5,d:1,t:"choice",q:"O&nbsp;T&nbsp;T&nbsp;F&nbsp;F&nbsp;S&nbsp;S&nbsp;❓<br>下一个字母是？（英文数字首字母）",opts:["E","N","T","W"],a:0,grid:true},
+{b:5,d:1,t:"choice",q:"11&nbsp;13&nbsp;17&nbsp;19&nbsp;23&nbsp;❓<br>下一个数字是？",opts:["25","27","29","31"],a:2,grid:true},
+{b:5,d:1,t:"choice",q:"5&nbsp;11&nbsp;23&nbsp;47&nbsp;❓<br>下一个数字是？（×2+1）",opts:["93","94","95","96"],a:2,grid:true},
+{b:5,d:1,t:"choice",q:"J&nbsp;F&nbsp;M&nbsp;A&nbsp;M&nbsp;❓<br>下一个字母是？（月份首字母）",opts:["J","S","O","D"],a:0,grid:true},
+{b:5,d:1,t:"choice",q:"1&nbsp;11&nbsp;21&nbsp;1211&nbsp;111221&nbsp;❓<br>下一个是？（描述前一项）",opts:["312211","121122","111222","212211"],a:0,grid:true},
+{b:5,d:1,t:"choice",q:"8&nbsp;6&nbsp;9&nbsp;5&nbsp;10&nbsp;4&nbsp;❓<br>下一个数字是？（-2+3-4+5…）",opts:["3","11","12","2"],a:1,grid:true},
+{b:5,d:1,t:"choice",q:"72&nbsp;36&nbsp;12&nbsp;6&nbsp;❓<br>下一个数字是？（÷2 ÷3交替）",opts:["1","2","3","4"],a:1,grid:true},
+{b:5,d:1,t:"choice",q:"1&nbsp;5&nbsp;13&nbsp;29&nbsp;❓<br>下一个数字是？（×2+3）",opts:["53","57","61","65"],a:2,grid:true},
+/* ===== b5 18岁+ · 工作记忆 ===== */
+{b:5,d:2,t:"mem",seq:["4","9","2","7","5","1"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["4 - 9 - 2 - 7 - 5 - 1","1 - 5 - 7 - 2 - 9 - 4","9 - 4 - 1 - 5 - 7 - 2","4 - 2 - 9 - 1 - 5 - 7"],a:0},
+{b:5,d:2,t:"mem",seq:["7","1","5","3","8","2","9"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["7 - 1 - 5 - 3 - 8 - 2 - 9","9 - 2 - 8 - 3 - 5 - 1 - 7","1 - 7 - 9 - 2 - 8 - 3 - 5","7 - 5 - 1 - 9 - 3 - 8 - 2"],a:0},
+{b:5,d:2,t:"mem",seq:["2","8","4","6","9","1","3","5"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["2 - 8 - 4 - 6 - 9 - 1 - 3 - 5","5 - 3 - 1 - 9 - 6 - 4 - 8 - 2","8 - 2 - 5 - 3 - 1 - 9 - 6 - 4","2 - 4 - 8 - 5 - 3 - 1 - 9 - 6"],a:0},
+{b:5,d:2,t:"mem",seq:["5","3","9","1","7","4","2","6","8"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["5 - 3 - 9 - 1 - 7 - 4 - 2 - 6 - 8","8 - 6 - 2 - 4 - 7 - 1 - 9 - 3 - 5","3 - 5 - 8 - 6 - 2 - 4 - 7 - 9 - 1","5 - 9 - 3 - 8 - 1 - 4 - 6 - 2 - 7"],a:0},
+{b:5,d:2,t:"mem",seq:["6","2","8","4","9","1"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["1 - 9 - 4 - 8 - 2 - 6","6 - 2 - 8 - 4 - 9 - 1","2 - 6 - 1 - 9 - 4 - 8","8 - 4 - 6 - 1 - 9 - 2"],a:0},
+{b:5,d:2,t:"mem",seq:["3","9","1","5","7","2","4"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["4 - 2 - 7 - 5 - 1 - 9 - 3","3 - 9 - 1 - 5 - 7 - 2 - 4","9 - 3 - 4 - 2 - 7 - 5 - 1","7 - 5 - 3 - 4 - 1 - 9 - 2"],a:0},
+{b:5,d:2,t:"mem",seq:["灯塔","葡萄","火车","月亮","尺子","岛屿"],mode:"words",q:"刚才出现了哪个词？",opts:["月亮","太阳","星星","云朵"],a:0},
+{b:5,d:2,t:"mem",seq:["梅","兰","竹","菊","松","柏"],mode:"words",q:"刚才没有出现的是哪个字？",opts:["竹","荷","松","柏"],a:1},
+{b:5,d:2,t:"mem",seq:["8","5","2","9","4","7","1","3","6"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["8 - 5 - 2 - 9 - 4 - 7 - 1 - 3 - 6","6 - 3 - 1 - 7 - 4 - 9 - 2 - 5 - 8","5 - 8 - 6 - 3 - 1 - 7 - 4 - 9 - 2","8 - 2 - 5 - 6 - 9 - 4 - 7 - 3 - 1"],a:0},
+{b:5,d:2,t:"mem",seq:["9","2","6","4","8","1","5","3"],mode:"reverse",q:"刚才的数字，倒过来是？",opts:["3 - 5 - 1 - 8 - 4 - 6 - 2 - 9","9 - 2 - 6 - 4 - 8 - 1 - 5 - 3","2 - 9 - 3 - 5 - 1 - 8 - 4 - 6","6 - 4 - 8 - 3 - 5 - 1 - 2 - 9"],a:0},
+{b:5,d:2,t:"mem",seq:["桥","湖","岛","塔","楼"],mode:"words",q:"刚才出现的第 4 个词是？",opts:["桥","湖","塔","楼"],a:2},
+{b:5,d:2,t:"mem",seq:["1","7","3","9","5","2","8","4"],mode:"forward",q:"刚才的数字，按顺序是？",opts:["1 - 7 - 3 - 9 - 5 - 2 - 8 - 4","4 - 8 - 2 - 5 - 9 - 3 - 7 - 1","7 - 1 - 4 - 8 - 2 - 5 - 9 - 3","1 - 3 - 7 - 4 - 9 - 5 - 8 - 2"],a:0},
+/* ===== b5 18岁+ · 加工速度 ===== */
+{b:5,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🧬",opts:["🔬","🧬","🧫","🧪","💊","🩺","🌡","💉"],a:1,grid:true},
+{b:5,d:3,t:"speed",q:"17 × 3 = ？",opts:["41","51","61","71"],a:1,grid:true},
+{b:5,d:3,t:"speed",q:"下面哪个数最大？",opts:["1009","1090","1900","1099"],a:2,grid:true},
+{b:5,d:3,t:"speed",q:"▲&nbsp;△&nbsp;▲&nbsp;▲&nbsp;△&nbsp;▲&nbsp;△&nbsp;△&nbsp;▲&nbsp;△<br>里面有几个 ▲？",opts:["4个","5个","6个","7个"],a:1},
+{b:5,d:3,t:"speed",q:"找出不一样的那一个：",opts:["➡","➡","➡","⬅","➡","➡","➡","➡"],a:3,grid:true},
+{b:5,d:3,t:"speed",q:"144 ÷ 12 = ？",opts:["10","11","12","14"],a:2,grid:true},
+{b:5,d:3,t:"speed",q:"找到和下面这个一样的：",target:"🪐",opts:["🌍","🌕","🪐","☀","🌙","⭐","💫","☄"],a:2,grid:true},
+{b:5,d:3,t:"speed",q:"找出不一样的那一个：",opts:["🟪","🟪","🟪","🟪","🟪","🟪","🟫","🟪"],a:6,grid:true},
+{b:5,d:3,t:"speed",q:"25 × 4 = ？",opts:["75","100","125","150"],a:1,grid:true},
+{b:5,d:3,t:"speed",q:"下面哪个数最小？",opts:["505","550","5050","55"],a:3,grid:true},
+{b:5,d:3,t:"speed",q:"●&nbsp;○&nbsp;○&nbsp;●&nbsp;○&nbsp;●&nbsp;●&nbsp;○&nbsp;●&nbsp;○<br>里面有几个 ●？",opts:["4个","5个","6个","7个"],a:1},
+{b:5,d:3,t:"speed",q:"找到和下面这个一样的：",target:"⌨",opts:["🖥","⌨","🖱","🖨","💾","💽","🖲","📀"],a:1,grid:true}
+];
+/* 维度重映射: 旧 d1 视觉推理→d2 流体推理, 旧 d2 工作记忆→d3, 旧 d3 加工速度→d4 */
+ALL.forEach(it=>{const m={1:2,2:3,3:4};if(m[it.d]!==undefined)it.d=m[it.d];});
+/* 新增三个维度: d1 视觉空间 / d5 注意力 / d6 执行功能 */
+ALL.push(
+/* ===== 视觉空间 b0 3-4岁 ===== */
+{b:0,d:1,t:"choice",q:"⭐ 在 🔵 的哪一边？<br>⭐&nbsp;🔵",opts:["左边","右边","上边"],a:0},
+{b:0,d:1,t:"choice",q:"⬆️ 在原地转一圈后，还是指向哪？",opts:["⬆️","⬇️","➡️"],a:0,grid:true},
+{b:0,d:1,t:"choice",q:"哪个箭头方向不一样？",opts:["➡️","➡️","⬅️"],a:2,grid:true},
+/* ===== 视觉空间 b1 5-6岁 ===== */
+{b:1,d:1,t:"choice",q:"⬆️ 向右转，指向哪？",opts:["⬆️","➡️","⬇️","⬅️"],a:1,grid:true},
+{b:1,d:1,t:"choice",q:"⭐ 在 🔵 的哪一边？<br>🔵&nbsp;⭐",opts:["左边","右边","上边","下边"],a:1},
+{b:1,d:1,t:"choice",q:"哪个和 ➡️ 方向相反？",opts:["➡️","⬅️","⬆️","⬇️"],a:1,grid:true},
+{b:1,d:1,t:"choice",q:"把 ●○ 上下翻转，变成什么？",opts:["●○","○●","●●"],a:1},
+/* ===== 视觉空间 b2 7-9岁 ===== */
+{b:2,d:1,t:"choice",q:"⬆️ 顺时针转 90°，指向哪？",opts:["⬆️","➡️","⬇️","⬅️"],a:1,grid:true},
+{b:2,d:1,t:"choice",q:"字母 b 照镜子（左右翻转），变成哪个？",opts:["b","d","p","q"],a:1,grid:true},
+{b:2,d:1,t:"choice",q:"⬅️ 逆时针转 90°，指向哪？",opts:["⬆️","⬇️","➡️","⬅️"],a:1,grid:true},
+{b:2,d:1,t:"choice",q:"● 在 ■ 的上面，■ 在 ▲ 的上面，● 在 ▲ 的？",opts:["上面","下面","旁边"],a:0},
+{b:2,d:1,t:"choice",q:"哪个图形左右翻转后和原来一样？",opts:["⬆️","➡️","⬈","⬋"],a:0,grid:true},
+/* ===== 视觉空间 b3 10-12岁 ===== */
+{b:3,d:1,t:"choice",q:"➡️ 顺时针转 180°，指向哪？",opts:["➡️","⬅️","⬆️","⬇️"],a:1,grid:true},
+{b:3,d:1,t:"choice",q:"⬈ 顺时针转 90°，指向哪？",opts:["⬈","⬋","⬊","⬉"],a:2,grid:true},
+{b:3,d:1,t:"choice",q:"A 点在 B 点的东边，B 点在 C 点的东边，A 在 C 的？",opts:["东边","西边","南边","北边"],a:0},
+{b:3,d:1,t:"choice",q:"◐&nbsp;◑&nbsp;◒&nbsp;◓<br>哪两个旋转后能完全重合？",opts:["◐和◑","◐和◒","◒和◓","◐和◓"],a:0},
+{b:3,d:1,t:"choice",q:"⬆️ 先顺时针转 90°，再顺时针转 90°，最后指向？",opts:["⬆️","➡️","⬇️","⬅️"],a:2,grid:true},
+{b:3,d:1,t:"choice",q:"小明面朝北，右手边是哪个方向？",opts:["东","西","南","北"],a:0},
+/* ===== 视觉空间 b4 13-17岁 ===== */
+{b:4,d:1,t:"choice",q:"➡️ 顺时针转 135°，指向哪？",opts:["⬈","⬊","⬋","⬉"],a:2,grid:true},
+{b:4,d:1,t:"choice",q:"正方体有几个面？",opts:["4个","6个","8个","12个"],a:1},
+{b:4,d:1,t:"choice",q:"小明面朝东，向后转，再向右转，现在面朝？",opts:["东","西","南","北"],a:3},
+{b:4,d:1,t:"choice",q:"◐ 顺时针转 90° 后是？",opts:["◐","◑","◒","◓"],a:2,grid:true},
+{b:4,d:1,t:"choice",q:"A 在 B 北边，C 在 B 南边，A 在 C 的？",opts:["北边","南边","东边","西边"],a:0},
+{b:4,d:1,t:"choice",q:"⬆️ 逆时针转 270°，等于顺时针转？",opts:["90°","180°","270°","360°"],a:0},
+{b:4,d:1,t:"choice",q:"➡️⬆️⬅️⬇️ 首尾相接，能回到起点吗？",opts:["能","不能","不一定"],a:0},
+/* ===== 视觉空间 b5 18岁+ ===== */
+{b:5,d:1,t:"choice",q:"⬆️ 顺时针转 225°，指向哪？",opts:["⬈","⬊","⬋","⬉"],a:2,grid:true},
+{b:5,d:1,t:"choice",q:"正方体有几个顶点？",opts:["6个","8个","12个","4个"],a:1},
+{b:5,d:1,t:"choice",q:"小明面朝东南，向后转，再向左转，现在面朝？",opts:["东北","西北","东南","西南"],a:3},
+{b:5,d:1,t:"choice",q:"◑ 逆时针转 90° 后是？",opts:["◐","◑","◒","◓"],a:3,grid:true},
+{b:5,d:1,t:"choice",q:"甲在乙正东 3 米，丙在乙正西 4 米，甲在丙正东几米？",opts:["1米","7米","4米","3米"],a:1},
+{b:5,d:1,t:"choice",q:"正方形纸朝同一方向对折两次再打开，有几条折痕？",opts:["1条","2条","3条","4条"],a:2},
+{b:5,d:1,t:"choice",q:"⬆️ 顺时针转 90° 两次，等于逆时针转？",opts:["90°","180°","270°","360°"],a:1,grid:true},
+/* ===== 注意力 b0 3-4岁 ===== */
+{b:0,d:5,t:"choice",q:"找出所有的 🍎，有几个？<br>🍎&nbsp;🍐&nbsp;🍎<br>🍌&nbsp;🍎&nbsp;🍐",opts:["2个","3个","4个"],a:1},
+{b:0,d:5,t:"choice",q:"找出所有的 ⭐，有几个？<br>⭐&nbsp;🌙&nbsp;⭐<br>☀&nbsp;⭐&nbsp;🌙",opts:["2个","3个","4个"],a:1},
+{b:0,d:5,t:"choice",q:"哪一行和第一行完全一样？<br>🍎🍌🍇<br>🍎🍇🍌<br>🍌🍎🍇<br>🍎🍌🍇",opts:["第2行","第3行","第4行"],a:2},
+/* ===== 注意力 b1 5-6岁 ===== */
+{b:1,d:5,t:"choice",q:"找出所有的 🐱，有几个？<br>🐱&nbsp;🐶&nbsp;🐱&nbsp;🐰<br>🐶&nbsp;🐱&nbsp;🐶&nbsp;🐱",opts:["3个","4个","5个"],a:1},
+{b:1,d:5,t:"choice",q:"找出所有的 🔴，有几个？<br>🔴&nbsp;🔵&nbsp;🟢&nbsp;🔴<br>🟡&nbsp;🔴&nbsp;🔵&nbsp;🟢",opts:["2个","3个","4个"],a:1},
+{b:1,d:5,t:"choice",q:"哪一行和第一行完全一样？<br>⭐🌙☀⭐<br>⭐☀🌙⭐<br>🌙⭐☀⭐<br>⭐🌙☀⭐",opts:["第2行","第3行","第4行"],a:2},
+{b:1,d:5,t:"choice",q:"找出所有的 3，有几个？<br>3&nbsp;5&nbsp;3&nbsp;8<br>5&nbsp;3&nbsp;8&nbsp;3",opts:["3个","4个","5个"],a:1},
+/* ===== 注意力 b2 7-9岁 ===== */
+{b:2,d:5,t:"choice",q:"找出所有的 🍓，有几个？<br>🍓&nbsp;🍒&nbsp;🍑&nbsp;🍓&nbsp;🍉<br>🍒&nbsp;🍓&nbsp;🍑&nbsp;🍉&nbsp;🍓",opts:["3个","4个","5个"],a:1},
+{b:2,d:5,t:"choice",q:"哪一组和第一组完全一样？<br>4&nbsp;7&nbsp;2&nbsp;9<br>4&nbsp;2&nbsp;7&nbsp;9<br>7&nbsp;4&nbsp;9&nbsp;2<br>4&nbsp;7&nbsp;2&nbsp;9",opts:["第2组","第3组","第4组"],a:2},
+{b:2,d:5,t:"choice",q:"找出所有的 ▲，有几个？<br>▲&nbsp;■&nbsp;●&nbsp;▲&nbsp;★<br>■&nbsp;▲&nbsp;★&nbsp;●&nbsp;▲",opts:["3个","4个","5个"],a:1},
+{b:2,d:5,t:"choice",q:"下面这句话里有几个“的”？<br>我的书包里有我的书和我的笔",opts:["2个","3个","4个"],a:1},
+{b:2,d:5,t:"choice",q:"找出所有的 b，有几个？<br>b&nbsp;d&nbsp;p&nbsp;b&nbsp;q<br>d&nbsp;b&nbsp;q&nbsp;p&nbsp;b",opts:["3个","4个","5个"],a:1},
+/* ===== 注意力 b3 10-12岁 ===== */
+{b:3,d:5,t:"choice",q:"找出所有的 ★，有几个？<br>★&nbsp;☆&nbsp;★&nbsp;✦&nbsp;★&nbsp;☆<br>☆&nbsp;★&nbsp;✦&nbsp;☆&nbsp;★&nbsp;✦",opts:["4个","5个","6个"],a:1},
+{b:3,d:5,t:"choice",q:"这句话里有几个错别字？<br>他昨天去了公圆，玩得很开心",opts:["1个","2个","3个"],a:0},
+{b:3,d:5,t:"choice",q:"哪一组数字和第一组完全一样？<br>58&nbsp;34&nbsp;91&nbsp;26<br>58&nbsp;43&nbsp;91&nbsp;26<br>58&nbsp;34&nbsp;19&nbsp;26<br>58&nbsp;34&nbsp;91&nbsp;26",opts:["第2组","第3组","第4组"],a:2},
+{b:3,d:5,t:"choice",q:"找出所有的 7，有几个？<br>7&nbsp;1&nbsp;7&nbsp;4&nbsp;9&nbsp;7<br>1&nbsp;7&nbsp;4&nbsp;7&nbsp;9&nbsp;1",opts:["4个","5个","6个"],a:1},
+{b:3,d:5,t:"choice",q:"下面哪个词出现了两次？<br>苹果&nbsp;香蕉&nbsp;苹果&nbsp;梨&nbsp;葡萄",opts:["苹果","香蕉","梨"],a:0},
+{b:3,d:5,t:"choice",q:"找出所有的 ▶，有几个？<br>▶&nbsp;▷&nbsp;▶&nbsp;◀&nbsp;▶&nbsp;▷<br>▷&nbsp;▶&nbsp;◀&nbsp;▶&nbsp;▷&nbsp;▶",opts:["5个","6个","7个"],a:1},
+/* ===== 注意力 b4 13-17岁 ===== */
+{b:4,d:5,t:"choice",q:"这段话里有几个错别字？<br>他再三叮嘱我，考试时一定要细心，不能马虎",opts:["0个","1个","2个"],a:0},
+{b:4,d:5,t:"choice",q:"这句话里有几个“的”？<br>我的书是新的，他的书是旧的",opts:["2个","3个","4个"],a:2},
+{b:4,d:5,t:"choice",q:"哪串字符和第一串完全一样？<br>aB3dE7<br>aB3eD7<br>AB3dE7<br>aB3dE7",opts:["第2串","第3串","第4串"],a:2},
+{b:4,d:5,t:"choice",q:"找出所有的 9，有几个？<br>9&nbsp;6&nbsp;9&nbsp;4&nbsp;6&nbsp;9&nbsp;1<br>6&nbsp;9&nbsp;1&nbsp;9&nbsp;4&nbsp;6&nbsp;9",opts:["5个","6个","7个"],a:1},
+{b:4,d:5,t:"choice",q:"下面这句话里，哪个词重复出现了？<br>研究研究生的生活",opts:["研究","研究生","生活"],a:0},
+{b:4,d:5,t:"choice",q:"下面哪两个图形完全一样？<br>◐&nbsp;◑&nbsp;◒&nbsp;◓&nbsp;◐",opts:["第1和第5个","第1和第2个","第2和第4个"],a:0},
+{b:4,d:5,t:"choice",q:"找出所有的 ◆，有几个？<br>◆&nbsp;◇&nbsp;◆&nbsp;◆&nbsp;◇&nbsp;◆<br>◇&nbsp;◆&nbsp;◇&nbsp;◆&nbsp;◆&nbsp;◇",opts:["5个","6个","7个"],a:2},
+/* ===== 注意力 b5 18岁+ ===== */
+{b:5,d:5,t:"choice",q:"这段话有几个错别字？<br>他的决心以经下定，任谁也拦不住",opts:["1个","2个","3个"],a:0},
+{b:5,d:5,t:"choice",q:"哪串和第一串完全一样？<br>K7mQ2xP9<br>K7nQ2xP9<br>K7mQ2xP9<br>k7mQ2xP9",opts:["第2串","第3串","第4串"],a:1},
+{b:5,d:5,t:"choice",q:"找出所有的 6，有几个？<br>6&nbsp;9&nbsp;6&nbsp;9&nbsp;6&nbsp;9&nbsp;6<br>9&nbsp;6&nbsp;9&nbsp;6&nbsp;9&nbsp;6&nbsp;9",opts:["6个","7个","8个"],a:1},
+{b:5,d:5,t:"choice",q:"“他走了一个小时”这句话？",opts:["有歧义","没歧义","不一定"],a:0},
+{b:5,d:5,t:"choice",q:"找出所有的 ●，有几个？<br>●&nbsp;○&nbsp;●&nbsp;●&nbsp;○&nbsp;●&nbsp;○&nbsp;○<br>○&nbsp;●&nbsp;○&nbsp;●&nbsp;●&nbsp;○&nbsp;●&nbsp;○",opts:["6个","7个","8个"],a:2},
+{b:5,d:5,t:"choice",q:"下面哪个标点用错了？<br>他说：“我明天来。”。",opts:["句号","冒号","引号"],a:0},
+{b:5,d:5,t:"choice",q:"找出所有的 E，有几个？<br>E&nbsp;F&nbsp;E&nbsp;W&nbsp;E&nbsp;M&nbsp;E<br>F&nbsp;E&nbsp;M&nbsp;E&nbsp;W&nbsp;F&nbsp;E",opts:["5个","6个","7个"],a:2},
+/* ===== 执行功能 b0 3-4岁 ===== */
+{b:0,d:6,t:"choice",q:"玩说反话：我说“白天”，你说？",opts:["白天","黑夜","中午"],a:1},
+{b:0,d:6,t:"choice",q:"记住：看到 🍎 就选它，看到 🍐 不要选。选哪个？",opts:["🍎","🍐"],a:0,grid:true},
+{b:0,d:6,t:"choice",q:"我说“站起来”，反话是？",opts:["坐下","站起来","跑步"],a:0},
+/* ===== 执行功能 b1 5-6岁 ===== */
+{b:1,d:6,t:"choice",q:"说反话：我说“大”，你说？",opts:["大","小","中"],a:1},
+{b:1,d:6,t:"choice",q:"规则：只选【红色的】。选哪个？",opts:["🔴","🔵","🟢"],a:0,grid:true},
+{b:1,d:6,t:"choice",q:"规则变了：只选【圆形的】。选哪个？",opts:["🟥","🔵","🟩"],a:1,grid:true},
+{b:1,d:6,t:"choice",q:"看到 🐶 就选，看到 🐱 就停。选哪个？",opts:["🐱","🐶","🐰"],a:1,grid:true},
+/* ===== 执行功能 b2 7-9岁 ===== */
+{b:2,d:6,t:"choice",q:"说反话：我说“快”，你说？",opts:["快","慢","跑"],a:1},
+{b:2,d:6,t:"choice",q:"规则：只选【单数】。选哪个？",opts:["4","7","8","6"],a:1,grid:true},
+{b:2,d:6,t:"choice",q:"规则变了：只选【双数】。选哪个？",opts:["3","5","9","8"],a:3,grid:true},
+{b:2,d:6,t:"choice",q:"<span style='color:#2B6FD8;font-size:36px;font-weight:800'>红</span><br>这个字的<span style='color:#C0392B'>颜色</span>是？",opts:["红色","蓝色","绿色"],a:1},
+{b:2,d:6,t:"choice",q:"<span style='color:#2B6FD8;font-size:36px;font-weight:800'>红</span><br>这个字的<span style='color:#C0392B'>意思</span>是？",opts:["红色","蓝色","绿色"],a:0},
+/* ===== 执行功能 b3 10-12岁 ===== */
+{b:3,d:6,t:"choice",q:"<span style='color:#3DBA6B;font-size:36px;font-weight:800'>蓝</span><br>这个字的颜色是？",opts:["蓝色","绿色","黄色"],a:1},
+{b:3,d:6,t:"choice",q:"<span style='color:#3DBA6B;font-size:36px;font-weight:800'>蓝</span><br>这个字的意思是？",opts:["蓝色","绿色","黄色"],a:0},
+{b:3,d:6,t:"choice",q:"规则：先选【最大的数】。选哪个？",opts:["7","3","9","5"],a:2,grid:true},
+{b:3,d:6,t:"choice",q:"规则：再选【最小的数】。选哪个？",opts:["7","3","9","5"],a:1,grid:true},
+{b:3,d:6,t:"choice",q:"玩反话游戏：我说“左”，你指哪边？",opts:["左边","右边","上边"],a:1},
+{b:3,d:6,t:"choice",q:"规则：奇数选○，偶数选□。看到 7 选？",opts:["○","□"],a:0,grid:true},
+/* ===== 执行功能 b4 13-17岁 ===== */
+{b:4,d:6,t:"choice",q:"<span style='color:#E0506E;font-size:36px;font-weight:800'>黄</span><br>这个字的颜色是？",opts:["黄色","红色","粉色"],a:1},
+{b:4,d:6,t:"choice",q:"<span style='color:#E0506E;font-size:36px;font-weight:800'>黄</span><br>这个字的意思是？",opts:["黄色","红色","粉色"],a:0},
+{b:4,d:6,t:"choice",q:"规则A：选【3的倍数】。选哪个？",opts:["7","9","11","13"],a:1,grid:true},
+{b:4,d:6,t:"choice",q:"规则B：选【5的倍数】。选哪个？",opts:["12","15","22","7"],a:1,grid:true},
+{b:4,d:6,t:"choice",q:"规则C：选【既是3的倍数又是5的倍数】。选哪个？",opts:["15","9","10","6"],a:0,grid:true},
+{b:4,d:6,t:"choice",q:"红灯停、绿灯行。遇到黄灯闪，应该？",opts:["加速冲过去","减速注意","停下玩手机"],a:1},
+{b:4,d:6,t:"choice",q:"老师说“举起左手”，你习惯用右手。正确做法是？",opts:["举右手","举左手","不动"],a:1},
+/* ===== 执行功能 b5 18岁+ ===== */
+{b:5,d:6,t:"choice",q:"<span style='font-size:20px;font-weight:800'>大</span> <span style='font-size:13px;color:#888'>（这个字显示得很小）</span><br>按字的<span style='color:#C0392B'>大小</span>（不是意思），它算？",opts:["大字","小字","中字"],a:1},
+{b:5,d:6,t:"choice",q:"规则：先做加法再做乘法。2 + 3 × 4 按此规则 = ？",opts:["14","20","24","10"],a:1,grid:true},
+{b:5,d:6,t:"choice",q:"规则：只选【质数】。选哪个？",opts:["2","4","8","9"],a:0,grid:true},
+{b:5,d:6,t:"choice",q:"规则切换：只选【合数】。选哪个？",opts:["2","4","7","11"],a:1,grid:true},
+{b:5,d:6,t:"choice",q:"电梯里想按 8 楼，手已伸向 6。正确做法是？",opts:["将错就错按6","停住改按8","随便按一个"],a:1},
+{b:5,d:6,t:"choice",q:"开会时手机响了，第一反应应该是？",opts:["马上接起来","静音或挂断","大声说话"],a:1},
+{b:5,d:6,t:"choice",q:"“不要想白熊”——越克制越会想，这说明？",opts:["硬压反而反弹，抑制需要策略","意志力没用","白熊很可爱"],a:0}
+);
+/* ============ 游戏逻辑 ============ */
+let order=[],pos=0,answers=[],curDomain=-1,curBand=0,memTimers=[],t0=0,locked=false;
+
+function show(id){["s-start","s-age","s-domain","s-quiz","s-result"].forEach(s=>document.getElementById(s).classList.add("hide"));document.getElementById(id).classList.remove("hide");window.scrollTo(0,0);}
+
+/* 年龄选择列表 */
+(function(){
+  let html="";
+  BANDS.forEach((b,i)=>{
+    const n=ALL.filter(it=>it.b===i).length;
+    html+='<button class="agebtn" onclick="startTest('+i+')"><span class="em">'+b.em+'</span><span><span class="t1">'+b.label+'</span><div class="t2">'+n+' 题 · '+b.sub+'</div></span></button>';
+  });
+  document.getElementById("age-list").innerHTML=html;
+})();
+
+function startTest(band){
+  curBand=band;order=[];
+  for(let d=0;d<7;d++){
+    const idxs=[];
+    ALL.forEach((it,i)=>{if(it.b===band&&it.d===d)idxs.push(i);});
+    order.push(...idxs);
+  }
+  pos=0;answers=[];curDomain=-1;
+  nextDomainIntro();
+}
+function nextDomainIntro(){
+  const d=ALL[order[pos]].d;curDomain=d;
+  document.getElementById("d-band").textContent=BANDS[curBand].label;
+  const chip=document.getElementById("d-chip");chip.textContent=DOMAINS[d].name;chip.style.background=DOMAINS[d].color;
+  document.getElementById("d-title").textContent=DEMOJI[d]+" "+DOMAINS[d].name;
+  const cnt=order.filter(i=>ALL[i].d===d).length;
+  document.getElementById("d-desc").textContent=DOMAINS[d].desc+"本轮共 "+cnt+" 题。";
+  document.getElementById("d-note").textContent=BANDS[curBand].parent?"👨‍👩‍👧 请家长陪同，把题目读给孩子听，孩子点选答案。":"";
+  document.getElementById("d-btn").textContent=pos>0?"休息好了，进入本轮 ▶":"进入本轮 ▶";
+  show("s-domain");
+}
+function beginDomain(){show("s-quiz");renderItem();}
+
+function renderItem(){
+  clearMemTimers();locked=false;
+  const it=ALL[order[pos]];
+  document.getElementById("q-count").textContent="第 "+(pos+1)+" / "+order.length+" 题";
+  document.getElementById("q-prog").style.width=((pos)/order.length*100)+"%";
+  const body=document.getElementById("q-body");
+  if(it.t==="mem"){playMem(it,body);}else{showOptions(it,body);}
+}
+function clearMemTimers(){memTimers.forEach(t=>clearTimeout(t));memTimers=[];}
+
+function playMem(it,body){
+  body.innerHTML='<div class="memhint">👀 看仔细，记住它们！</div><div class="memshow" id="memshow"></div>';
+  const el=document.getElementById("memshow");let i=0;
+  function step(){
+    if(i<it.seq.length){el.textContent=it.seq[i];i++;memTimers.push(setTimeout(step,900));}
+    else{el.textContent="";showOptions(it,body);}
+  }
+  step();
+}
+function showOptions(it,body){
+  let html="";
+  if(it.target){html+='<div class="targetbox"><div class="t">'+it.target+'</div></div>';}
+  html+='<div class="q">'+it.q+'</div>';
+  if(it.t==="speed"){html+='<div class="qsmall">⏱ 尽量又快又准</div>';}
+  if(it.grid){html+='<div class="optgrid">';it.opts.forEach((o,i)=>{html+='<button class="opt" onclick="answer('+i+')">'+o+'</button>';});html+='</div>';}
+  else{it.opts.forEach((o,i)=>{html+='<button class="opt" onclick="answer('+i+')">'+o+'</button>';});}
+  body.innerHTML=html;
+  if(it.t==="speed"){t0=Date.now();}
+}
+function answer(i){
+  if(locked)return;locked=true;
+  const it=ALL[order[pos]];
+  const rec={d:it.d,ok:(i===it.a)};
+  if(it.t==="speed"){rec.ms=Date.now()-t0;}
+  answers.push(rec);
+  const fb=document.getElementById("fb");
+  fb.textContent=rec.ok?"✅":"💪";fb.style.display="block";
+  setTimeout(()=>{fb.style.display="none";
+    pos++;
+    if(pos>=order.length){finish();}
+    else if(ALL[order[pos]].d!==curDomain){nextDomainIntro();}
+    else{renderItem();}
+  },550);
+}
+function pauseGame(){
+  clearMemTimers();
+  document.getElementById("overlay").style.display="flex";
+}
+function resumeGame(){
+  document.getElementById("overlay").style.display="none";
+  renderItem();
+}
+function level(p){return p>=80?"强项 💪":p>=60?"不错 🙂":p>=40?"一般 🌱":"待加强 🍀";}
+function finish(){
+  document.getElementById("r-band").textContent=BANDS[curBand].label;
+  const stats=[0,1,2,3,4,5,6].map(d=>{
+    const a=answers.filter(x=>x.d===d),ok=a.filter(x=>x.ok).length;
+    const ms=a.filter(x=>x.ms).map(x=>x.ms);
+    return{d,total:a.length,ok,pct:a.length?Math.round(ok/a.length*100):0,
+      avgMs:ms.length?Math.round(ms.reduce((s,v)=>s+v,0)/ms.length/100)/10:0};
+  });
+  let html="";
+  stats.forEach(s=>{
+    html+='<div class="bar"><div class="blabel"><span>'+DEMOJI[s.d]+" "+DOMAINS[s.d].name+'</span><span>'+s.ok+'/'+s.total+' · '+level(s.pct)+'</span></div>'
+      +'<div class="bartrack"><div class="barfill" style="width:'+s.pct+'%;background:'+DOMAINS[s.d].color+'"></div></div></div>';
+    if(s.d===3&&s.avgMs){html+='<div class="qsmall" style="text-align:right">⚡ 平均用时 '+s.avgMs+' 秒/题</div>';}
+  });
+  document.getElementById("r-bars").innerHTML=html;
+  const sorted=[...stats].sort((a,b)=>b.pct-a.pct);
+  const weak=[...stats].sort((a,b)=>a.pct-b.pct)[0];
+  const tips={0:"多阅读、多表达，语言能力在使用中生长。",1:"玩魔方、折纸、走迷宫，空间感越练越强。",2:"数独、图形推理题都是好练习。",3:"试试“复述游戏”：听完一句话，原样说出来，逐步加长。",4:"“找不同”“连连看”类小游戏，速度会慢慢提上来。",5:"玩“大家来找茬”，一次只盯一个目标，练专注。",6:"玩“红灯绿灯停”游戏，练习先想后做、管住冲动。"};
+  document.getElementById("r-summary").innerHTML=
+    "🌟 相对最拿手的是「"+DOMAINS[sorted[0].d].name+"」。<br>"+
+    "🌱 「"+DOMAINS[weak.d].name+"」还有进步空间："+tips[weak.d]+"<br>"+
+    "记住哦，这只是原创小题的一次记录，不是智力分数，开心最重要！";
+  show("s-result");
+}
+</script>
+</body>
+</html>
