@@ -47,6 +47,14 @@ h1{font-size:29px;text-align:center;color:#1F5FA8}
 .summary{font-size:16.5px;line-height:2;background:#F4F8FE;border-radius:14px;padding:16px;margin-top:14px}
 .bandtag{text-align:center;margin-top:6px}
 .bandtag span{display:inline-block;background:#EAF1FD;color:#1F5FA8;font-size:14px;font-weight:700;padding:5px 16px;border-radius:20px}
+.ptitle{font-size:21px;color:#1F5FA8;margin-top:24px}
+.pcard{background:#F7FAFF;border:2px solid #E3EDFB;border-radius:14px;padding:12px 16px;margin-top:10px}
+.phead{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:16.5px}
+.pflag{background:#E8862E;color:#fff;font-size:12.5px;font-weight:700;padding:2px 10px;border-radius:12px}
+.plist{margin:8px 0 2px 20px;font-size:15px;line-height:1.75;color:#3c4654}
+#r-imgwrap{margin-top:16px;text-align:center}
+#r-imgwrap img{width:100%;max-width:430px;border-radius:14px;box-shadow:0 4px 16px rgba(30,60,120,.18)}
+.imghint{font-size:14.5px;color:#7a8494;margin-top:8px;line-height:1.7}
 </style>
 </head>
 <body>
@@ -92,9 +100,15 @@ h1{font-size:29px;text-align:center;color:#1F5FA8}
 <div id="s-result" class="card hide">
 <h1>🎉 挑战完成！</h1>
 <div class="bandtag"><span id="r-band"></span></div>
-<p class="sub">四个方面的表现画像</p>
+<p class="sub">七个方面的表现画像</p>
 <div id="r-bars"></div>
 <div class="summary" id="r-summary"></div>
+<div id="r-practice"></div>
+<button class="btn" onclick="makeReport()">📷 生成报告图（可保存分享）</button>
+<div id="r-imgwrap" class="hide">
+<img id="r-img" alt="认知观察报告图">
+<p class="imghint">👆 长按图片即可保存到相册<br>可以发给家人看，或发朋友圈记录一下</p>
+</div>
 <div class="warn">⚠️ 本结果由原创、未经标准化的题目生成，仅反映本次作答情况，不代表智力水平，不能作为诊断依据。如需正式评估，请前往正规医疗机构心理科。</div>
 <button class="btn ghost" onclick="location.reload()">再测一次 🔁</button>
 </div>
@@ -586,6 +600,78 @@ function resumeGame(){
   document.getElementById("overlay").style.display="none";
   renderItem();
 }
+/* ============ 家庭练习库（维度 × 年龄档：0=3-6岁 1=7-12岁 2=13岁+） ============ */
+const ONETIP={0:"多阅读、多表达，语言能力在使用中生长。",1:"玩魔方、折纸、走迷宫，空间感越练越强。",2:"数独、图形推理题都是好练习。",3:"试试“复述游戏”：听完一句话，原样说出来，逐步加长。",4:"“找不同”“连连看”类小游戏，速度会慢慢提上来。",5:"玩“大家来找茬”，一次只盯一个目标，练专注。",6:"玩“红灯绿灯停”游戏，练习先想后做、管住冲动。"};
+const PRACTICE={
+0:[["亲子共读绘本，读完让孩子用自己的话讲一遍","玩“猜一猜”：你说特征，孩子猜是什么东西","吃饭时聊聊：今天最开心的一件事是什么"],["每天读课外书15分钟，读完说说主要讲了什么","玩词语接龙、成语接龙，输了的人讲个笑话","让孩子当小老师，把学到的知识讲给你听"],["读完一篇文章，用三句话概括中心意思","玩一分钟即兴演讲：抽个话题说满一分钟","每周整理10个成语或近义词，并各造一个句子"]],
+1:[["拼图从6片开始，慢慢加到24片","用积木照着图片搭出一样的造型","在房间里找一找：哪些东西是圆的、方的"],["跟着步骤图折纸、剪一个对称图案","走迷宫、玩魔方，从二阶开始练","画一张自己房间的平面图，标出家具位置"],["把一个杯子从正面、侧面、上面各画一张","玩魔方、华容道、九连环等空间类游戏","先画草图，再用纸盒搭一个立体小模型"]],
+2:[["把积木按颜色、形状、大小分一分","接着摆规律：红红蓝、红红蓝，后面摆什么","玩简单的找不同图画，先找3处再加到5处"],["数独从4宫格、6宫格开始练","找规律填数：2、4、8、16，后面是什么","玩火柴棒拼图：移动一根，变成新图形"],["每天做2-3道九宫格数独或图形推理题","玩24点：用四张扑克牌算出24","做找规律题时，把推导过程大声说出来"]],
+3:[["复述游戏：说2-3个词，孩子原样说一遍，慢慢加长","购物清单游戏：记住3样东西，假装买回来","连续指令：摸鼻子、拍手、转圈，一次做对"],["听数字复述：从4位练到6位，再试着倒着说","两位数加减不用竖式，心里算出答案","背一首短诗，第二天再默背一遍"],["听一串数字后复述，再挑战倒背","口算多步题，把中间结果记在脑子里","背单词用复述法：看一遍，合上书，说出来"]],
+4:[["在一堆图里快速找出两个一模一样的","按颜色给积木分类，计时比一比谁快","跟着儿歌节奏快速拍手、跺脚"],["连连看、找不同，计时挑战自己的纪录","每天20道口算计时，记下用时和对错","舒尔特方格5×5：按顺序快速点1到25"],["舒尔特方格加大到6×6，记录最好成绩","限时速算练习，错题单独再做一遍","每天打字10分钟，速度和准确一起练"]],
+5:[["玩找茬图画，先找出3处不同再加量","听故事时数一数：某个词出现了几次","摆一排玩具，拿走一个，猜猜少了哪个"],["在一页文字里圈出所有指定的字，不能漏","听朗读，听到目标词就拍一下手","写作业用番茄钟：专注15分钟，休息5分钟"],["读长文章时，给每段写一句小结防走神","番茄钟25分钟专注，手机放到另一个房间","用舒尔特方格或数独练持续专注"]],
+6:[["玩红灯绿灯停：喊停就立刻冻住不动","反着做：你摸头，孩子要摸脚","睡前自己准备好明天的衣服和书包"],["写作业前先说计划：先做哪科、后做哪科","用清单过一天：写下来，做完一项打个勾","玩一二三木头人，练说停就停"],["做难题先想30秒再动笔，不冲动下笔","用任务清单加番茄钟管理作业和复习","玩规则会变的卡牌游戏，练灵活切换"]]};
+let lastResult=null;
+function levelWord(p){return p>=80?"强项":p>=60?"不错":p>=40?"一般":"待加强";}
+function wrapLines(ctx,text,maxW){const lines=[];let cur="";for(const ch of text){if(cur&&ctx.measureText(cur+ch).width>maxW){lines.push(cur);cur=ch;}else{cur+=ch;}}if(cur)lines.push(cur);return lines;}
+function roundRect(ctx,x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function makeReport(){
+  if(!lastResult)return;
+  const R=lastResult,S=2,W=750,PAD=46,CW=W-PAD*2;
+  const meas=document.createElement("canvas").getContext("2d");
+  const sorted=[...R.stats].sort((a,b)=>b.pct-a.pct);
+  const strong=sorted[0],weak=sorted[sorted.length-1];
+  const dt=R.when,ds=dt.getFullYear()+"年"+(dt.getMonth()+1)+"月"+dt.getDate()+"日";
+  meas.font="27px 'PingFang SC','Microsoft YaHei',sans-serif";
+  const sumLines=wrapLines(meas,"相对最拿手的是「"+DOMAINS[strong.d].name+"」；「"+DOMAINS[weak.d].name+"」还有进步空间。",CW-44)
+    .concat(wrapLines(meas,"小建议："+ONETIP[weak.d],CW-44));
+  meas.font="26px 'PingFang SC','Microsoft YaHei',sans-serif";
+  const weak2=sorted.slice(-2);
+  let pracLines=[];
+  weak2.forEach(s=>{pracLines=pracLines.concat(wrapLines(meas,"【"+DOMAINS[s.d].name+"】"+PRACTICE[s.d][R.tier][0],CW-44));});
+  meas.font="21px 'PingFang SC','Microsoft YaHei',sans-serif";
+  const footLines=wrapLines(meas,"本报告由原创、未经标准化的题目生成，仅反映本次作答情况，不代表智力水平，不能作为诊断依据。如需正式评估，请前往正规医疗机构心理科。",CW);
+  const headerH=168,barH=76,sumH=sumLines.length*42+40,pracH=52+pracLines.length*40+28,footH=footLines.length*32+8;
+  const H=headerH+36+48+R.stats.length*barH+26+sumH+22+pracH+30+footH+44;
+  const cv=document.createElement("canvas");cv.width=W*S;cv.height=H*S;
+  const ctx=cv.getContext("2d");ctx.scale(S,S);ctx.textBaseline="top";
+  ctx.fillStyle="#FFFFFF";ctx.fillRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,0,W,headerH);g.addColorStop(0,"#3E8EDE");g.addColorStop(1,"#1F5FA8");
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,headerH);
+  ctx.fillStyle="#FFFFFF";ctx.font="700 40px 'PingFang SC','Microsoft YaHei',sans-serif";
+  ctx.fillText("认知小观察 · 观察报告",PAD,42);
+  ctx.font="25px 'PingFang SC','Microsoft YaHei',sans-serif";ctx.fillStyle="rgba(255,255,255,.88)";
+  ctx.fillText(BANDS[R.band].label+"  ·  "+ds,PAD,104);
+  let y=headerH+34;
+  ctx.fillStyle="#1F5FA8";ctx.font="700 30px 'PingFang SC','Microsoft YaHei',sans-serif";
+  ctx.fillText("七个方面的表现",PAD,y);y+=48;
+  R.stats.forEach(s=>{
+    ctx.fillStyle="#2b2f36";ctx.font="700 27px 'PingFang SC','Microsoft YaHei',sans-serif";
+    ctx.fillText(DOMAINS[s.d].name,PAD,y+2);
+    ctx.fillStyle="#7a8494";ctx.font="24px 'PingFang SC','Microsoft YaHei',sans-serif";
+    const rt=s.ok+"/"+s.total+" · "+levelWord(s.pct);
+    ctx.fillText(rt,PAD+CW-ctx.measureText(rt).width,y+4);
+    y+=38;
+    ctx.fillStyle="#F0F2F5";roundRect(ctx,PAD,y,CW,20,10);ctx.fill();
+    if(s.pct>0){ctx.fillStyle=DOMAINS[s.d].color;roundRect(ctx,PAD,y,Math.max(20,CW*s.pct/100),20,10);ctx.fill();}
+    y+=barH-38;
+  });
+  y+=4;
+  ctx.fillStyle="#F4F8FE";roundRect(ctx,PAD,y,CW,sumH,16);ctx.fill();
+  ctx.fillStyle="#2b2f36";ctx.font="27px 'PingFang SC','Microsoft YaHei',sans-serif";
+  sumLines.forEach((ln,i)=>ctx.fillText(ln,PAD+22,y+20+i*42));
+  y+=sumH+22;
+  ctx.fillStyle="#FFF6EA";roundRect(ctx,PAD,y,CW,pracH,16);ctx.fill();
+  ctx.fillStyle="#8A5B00";ctx.font="700 28px 'PingFang SC','Microsoft YaHei',sans-serif";
+  ctx.fillText("本周练习重点 · 在家这样练",PAD+22,y+18);
+  ctx.fillStyle="#3c4654";ctx.font="26px 'PingFang SC','Microsoft YaHei',sans-serif";
+  pracLines.forEach((ln,i)=>ctx.fillText(ln,PAD+22,y+56+i*40));
+  y+=pracH+28;
+  ctx.fillStyle="#7a8494";ctx.font="21px 'PingFang SC','Microsoft YaHei',sans-serif";
+  footLines.forEach((ln,i)=>ctx.fillText(ln,PAD,y+i*32));
+  document.getElementById("r-img").src=cv.toDataURL("image/png");
+  const wrap=document.getElementById("r-imgwrap");wrap.classList.remove("hide");
+  wrap.scrollIntoView({behavior:"smooth",block:"center"});
+}
 function level(p){return p>=80?"强项 💪":p>=60?"不错 🙂":p>=40?"一般 🌱":"待加强 🍀";}
 function finish(){
   document.getElementById("r-band").textContent=BANDS[curBand].label;
@@ -604,11 +690,19 @@ function finish(){
   document.getElementById("r-bars").innerHTML=html;
   const sorted=[...stats].sort((a,b)=>b.pct-a.pct);
   const weak=[...stats].sort((a,b)=>a.pct-b.pct)[0];
-  const tips={0:"多阅读、多表达，语言能力在使用中生长。",1:"玩魔方、折纸、走迷宫，空间感越练越强。",2:"数独、图形推理题都是好练习。",3:"试试“复述游戏”：听完一句话，原样说出来，逐步加长。",4:"“找不同”“连连看”类小游戏，速度会慢慢提上来。",5:"玩“大家来找茬”，一次只盯一个目标，练专注。",6:"玩“红灯绿灯停”游戏，练习先想后做、管住冲动。"};
+  const tips=ONETIP;
   document.getElementById("r-summary").innerHTML=
     "🌟 相对最拿手的是「"+DOMAINS[sorted[0].d].name+"」。<br>"+
     "🌱 「"+DOMAINS[weak.d].name+"」还有进步空间："+tips[weak.d]+"<br>"+
     "记住哦，这只是原创小题的一次记录，不是智力分数，开心最重要！";
+  const tier=curBand<=1?0:curBand<=3?1:2;
+  let ph="<h2 class=\"ptitle\">🏠 在家这样练</h2><p class=\"qsmall\">按本次表现排，最想进步的在前面。每天挑 1–2 个玩一玩就够了，重在坚持。</p>";
+  [...stats].sort((a,b)=>a.pct-b.pct).forEach((s,idx)=>{
+    ph+='<div class="pcard"><div class="phead"><span>'+DEMOJI[s.d]+" "+DOMAINS[s.d].name+'</span>'+(idx<2?'<span class="pflag">本周重点</span>':"")+'</div><ul class="plist">'
+      +PRACTICE[s.d][tier].map(x=>"<li>"+x+"</li>").join("")+"</ul></div>";
+  });
+  document.getElementById("r-practice").innerHTML=ph;
+  lastResult={band:curBand,stats:stats,tier:tier,when:new Date()};
   show("s-result");
 }
 </script>
